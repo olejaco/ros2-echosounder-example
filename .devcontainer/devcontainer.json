@@ -1,0 +1,21 @@
+{
+    "name": "ROS 2 Echo-Sounder Development",
+    "dockerFile": "Dockerfile",
+    "runArgs": [
+        "--privileged",
+        "--network=host"
+    ],
+    "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
+    "workspaceFolder": "/workspace",
+    "settings": {
+        "terminal.integrated.shell.linux": "/bin/bash"
+    },
+    "extensions": [
+        "ms-python.python",
+        "ms-vscode.cpptools",
+        "ms-iot.vscode-ros",
+        "ms-azuretools.vscode-docker"
+    ],
+    "remoteUser": "vscode",
+    "postCreateCommand": "sudo rosdep update && sudo rosdep install --from-paths src --ignore-src -r -y && sudo chown -R vscode:vscode /workspace && colcon build --symlink-install && echo 'source /workspace/install/setup.bash' >> ~/.bashrc"
+}

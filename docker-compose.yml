@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+  data_acquisition:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    command: ros2 run echo_sounder_pkg sensor_node
+    environment:
+      - ROS_DOMAIN_ID=0
+    networks:
+      - ros_net
+
+  data_processing:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    command: ros2 run echo_sounder_pkg processor_node
+    environment:
+      - ROS_DOMAIN_ID=0
+    networks:
+      - ros_net
+
+  visualization:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    command: ros2 run echo_sounder_pkg visualizer_node
+    environment:
+      - ROS_DOMAIN_ID=0
+    networks:
+      - ros_net
+
+networks:
+  ros_net:
+    driver: bridge
