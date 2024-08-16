@@ -4,9 +4,15 @@ This project implements a simulated echo-sounder system using ROS 2 (Robot Opera
 
 ## Architecture
 
-The system architecture is as follows:
-
-![Echo-Sounder System Architecture](architecture_diagram.png)
+```mermaid
+graph TD
+    A[Sensor Node] -->|raw_depth| B[Processor Node]
+    B -->|processed_depth| C[Visualizer Node]
+    D[Docker ROS]
+    D --> A
+    D --> B
+    D --> C
+```
 
 - **Sensor Node**: Generates simulated depth readings and publishes them to the `raw_depth` topic.
 - **Processor Node**: Subscribes to the `raw_depth` topic, processes the data, and publishes to the `processed_depth` topic.
